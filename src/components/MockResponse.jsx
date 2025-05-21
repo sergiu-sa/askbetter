@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-const MockResponse = ({ mood, goal, selectedAI }) => {
+const MockResponse = ({
+  mood,
+  goal,
+  selectedAI,
+  selectedTask,
+  audience,
+  format,
+}) => {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(true);
+  const [version, setVersion] = useState(0); // Triggers regeneration
 
   useEffect(() => {
     if (!goal) return;
@@ -10,47 +18,69 @@ const MockResponse = ({ mood, goal, selectedAI }) => {
     setLoading(true);
 
     const timeout = setTimeout(() => {
-      let opening = "";
+      let moodIntro = "";
       switch (mood) {
         case "confused":
         case "overwhelmed":
-          opening = "Let’s take this step-by-step.";
+          moodIntro = "Let's break this down calmly.";
           break;
         case "motivated":
-          opening = "Great — let’s get to work.";
+          moodIntro = "Sounds like you're ready to go!";
           break;
         case "tired":
-          opening = "Let’s keep this simple and low effort.";
+          moodIntro = "We'll keep it short and clear.";
           break;
         case "relaxed":
-          opening = "We can explore this at your pace.";
+          moodIntro = "We’ll take a light, exploratory approach.";
           break;
         case "creative":
-          opening = "Here’s a spark to get you going.";
+          moodIntro = "Here’s something to spark ideas:";
           break;
         default:
-          opening = "Here’s what I suggest:";
+          moodIntro = "Here's a suggestion based on your input:";
       }
 
-      setResponse(
-        `${opening} Based on your request to "${goal}", here’s how ${selectedAI} might respond:\n\n[ This is a placeholder AI response. Actual integration coming soon. ]`
-      );
+      const body = `
+[Task: ${selectedTask}]
+Audience: ${audience}
+Format: ${format}
+AI Assistant: ${selectedAI}
+
+"${goal}"
+
+${moodIntro}
+[ This is a placeholder response that simulates what the AI might return. ]
+`;
+
+      setResponse(body.trim());
       setLoading(false);
-    }, 1200);
+    }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [goal, mood, selectedAI]);
+  }, [goal, mood, selectedAI, selectedTask, audience, format, version]);
 
   if (!goal) return null;
 
+  const handleRegenerate = () => {
+    setVersion((v) => v + 1); // Triggers useEffect
+  };
+
   return (
-    <div className="mt-8 bg-white border border-gray-200 rounded-lg shadow p-4 text-sm whitespace-pre-wrap">
-      <h3 className="font-semibold text-indigo-600 mb-2">
-        {selectedAI.charAt(0).toUpperCase() + selectedAI.slice(1)}'s Mock
-        Response
-      </h3>
+    <div className="p-4 mt-8 text-sm whitespace-pre-wrap bg-white border border-gray-200 rounded-lg shadow">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="font-semibold text-indigo-600">
+          {selectedAI.charAt(0).toUpperCase() + selectedAI.slice(1)}’s Mock
+          Response
+        </h3>
+        <button
+          onClick={handleRegenerate}
+          className="px-2 py-1 text-xs text-gray-600 border rounded-md hover:bg-gray-100"
+        >
+          Regenerate
+        </button>
+      </div>
       {loading ? (
-        <p className="text-gray-500 italic">Thinking...</p>
+        <p className="italic text-gray-500">Thinking...</p>
       ) : (
         <p className="text-gray-700">{response}</p>
       )}
