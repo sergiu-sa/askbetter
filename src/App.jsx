@@ -8,11 +8,9 @@ import MockResponse from "./components/MockResponse";
 import TaskTypeSelector from "./components/TaskTypeSelector";
 import AudienceFormatSelector from "./components/AudienceFormatSelector";
 import TemplatePicker from "./components/TemplatePicker";
-
-
-
-
-
+import SaveTemplateForm from "./components/SaveTemplateForm";
+import SavedTemplates from "./components/SavedTemplates";
+import { useTheme } from "./context/ThemeContext";
 
 const App = () => {
   const [selectedMood, setSelectedMood] = useState("");
@@ -25,6 +23,12 @@ const App = () => {
   const [audience, setAudience] = useState("General");
   const [format, setFormat] = useState("Paragraph");
   const [proMode, setProMode] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  const [savedTemplates, setSavedTemplates] = useState(() => {
+    const stored = localStorage.getItem("askbetterTemplates");
+    return stored ? JSON.parse(stored) : [];
+  });
 
   const applyTemplate = (template) => {
     setSelectedTask(template.selectedTask);
@@ -36,31 +40,71 @@ const App = () => {
     setGoal(template.goal);
     setSelectedMood(template.mood);
   };
-  
 
+  const handleSaveTemplate = (template) => {
+    const updated = [...savedTemplates, template];
+    setSavedTemplates(updated);
+    localStorage.setItem("askbetterTemplates", JSON.stringify(updated));
+  };
+
+  const handleDeleteTemplate = (id) => {
+    const updated = savedTemplates.filter((t) => t.id !== id);
+    setSavedTemplates(updated);
+    localStorage.setItem("askbetterTemplates", JSON.stringify(updated));
+  };
+
+  const currentSettings = {
+    selectedTask,
+    tone,
+    urgency,
+    complexity,
+    audience,
+    format,
+    goal,
+    mood: selectedMood,
+  };
 
   return (
-    <div className="min-h-screen px-4 py-8 bg-background text-primary">
+    <div className="min-h-screen px-4 py-8 transition-colors duration-300 bg-background text-primary dark:bg-gray-900 dark:text-white">
       <header className="mb-8 text-center">
         <h1 className="text-3xl font-bold tracking-tight">AskBetter ✨</h1>
         <p className="mt-2 text-gray-600">A human interface for AI</p>
       </header>
-      <div className="flex justify-end max-w-2xl mx-auto mb-4">
+
+      <div className="flex justify-end max-w-2xl gap-2 mx-auto mb-4">
         <button
           onClick={() => setProMode(!proMode)}
           className="px-3 py-1 text-sm text-indigo-600 border border-indigo-500 rounded-full hover:bg-indigo-50"
         >
           {proMode ? "Switch to Quick Mode" : "Switch to Pro Mode"}
         </button>
+
+        <button
+          onClick={toggleTheme}
+          className="px-3 py-1 text-sm text-gray-600 border border-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+        >
+          {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
       </div>
 
-      <main className="max-w-2xl p-6 mx-auto space-y-8 bg-white shadow-md rounded-xl">
+      <main className="max-w-2xl p-6 mx-auto space-y-8 bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 rounded-xl">
         <MoodSelector
           selectedMood={selectedMood}
           setSelectedMood={setSelectedMood}
         />
 
         <TemplatePicker applyTemplate={applyTemplate} />
+
+        <SaveTemplateForm
+          currentSettings={currentSettings}
+          onSave={handleSaveTemplate}
+        />
+
+        <SavedTemplates
+          templates={savedTemplates}
+          onApply={applyTemplate}
+          onDelete={handleDeleteTemplate}
+        />
 
         <TaskTypeSelector
           selectedTask={selectedTask}
