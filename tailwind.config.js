@@ -2,6 +2,17 @@
 export default {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,jsx}"],
+  safelist: [
+    {
+      pattern:
+        /(text|bg|border)-(indigo|green|orange)-(50|100|200|500|600|700)/,
+      variants: ["hover"],
+    },
+    "font-sm",
+    "font-md",
+    "font-lg",
+  ],
+
   theme: {
     extend: {
       colors: {

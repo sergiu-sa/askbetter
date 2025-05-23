@@ -10,6 +10,7 @@ import AudienceFormatSelector from "./components/AudienceFormatSelector";
 import TemplatePicker from "./components/TemplatePicker";
 import SaveTemplateForm from "./components/SaveTemplateForm";
 import SavedTemplates from "./components/SavedTemplates";
+import SettingsPanel from "./components/SettingsPanel";
 import { useTheme } from "./context/ThemeContext";
 
 const App = () => {
@@ -23,7 +24,8 @@ const App = () => {
   const [audience, setAudience] = useState("General");
   const [format, setFormat] = useState("Paragraph");
   const [proMode, setProMode] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+
+  const { theme, toggleTheme, accentColor, fontSize } = useTheme();
 
   const [savedTemplates, setSavedTemplates] = useState(() => {
     const stored = localStorage.getItem("askbetterTemplates");
@@ -65,7 +67,15 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 py-8 transition-colors duration-300 bg-background text-primary dark:bg-gray-900 dark:text-white">
+    <div
+      className={`min-h-screen px-4 py-8 transition-colors duration-300 bg-background text-primary dark:bg-gray-900 dark:text-white ${
+        fontSize === "sm"
+          ? "text-sm"
+          : fontSize === "lg"
+          ? "text-lg"
+          : "text-base"
+      }`}
+    >
       <header className="mb-8 text-center">
         <h1 className="text-3xl font-bold tracking-tight">AskBetter ✨</h1>
         <p className="mt-2 text-gray-600">A human interface for AI</p>
@@ -74,7 +84,7 @@ const App = () => {
       <div className="flex justify-end max-w-2xl gap-2 mx-auto mb-4">
         <button
           onClick={() => setProMode(!proMode)}
-          className="px-3 py-1 text-sm text-indigo-600 border border-indigo-500 rounded-full hover:bg-indigo-50"
+          className={`px-3 py-1 text-sm text-${accentColor}-600 border border-${accentColor}-500 rounded-full hover:bg-${accentColor}-50`}
         >
           {proMode ? "Switch to Quick Mode" : "Switch to Pro Mode"}
         </button>
@@ -88,6 +98,8 @@ const App = () => {
       </div>
 
       <main className="max-w-2xl p-6 mx-auto space-y-8 bg-white border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 rounded-xl">
+        <SettingsPanel />
+
         <MoodSelector
           selectedMood={selectedMood}
           setSelectedMood={setSelectedMood}
