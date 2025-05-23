@@ -65,19 +65,37 @@ Please respond in ${toneContext}, ${urgencyContext}, and ${complexityContext}.
   };
 
   return (
-    <div className="p-4 mt-8 space-y-3 text-sm text-gray-700 border-l-4 border-indigo-500 rounded-lg shadow-sm bg-gray-50">
+    <div
+      className="p-4 mt-8 space-y-3 border-l-4 rounded-lg shadow-sm"
+      style={{
+        fontSize: "var(--font-size)",
+        color: "var(--text-color)",
+        backgroundColor: "var(--background-color)",
+        borderLeftColor: "var(--accent-color)",
+      }}
+    >
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-indigo-700">Generated Prompt</h3>
+        <h3 className="font-semibold" style={{ color: "var(--accent-color)" }}>
+          Generated Prompt
+        </h3>
         <div className="flex gap-2 text-xs">
           <button
             onClick={handleToggleEdit}
-            className="px-2 py-1 text-gray-600 border rounded-md hover:bg-gray-100"
+            className="px-2 py-1 border rounded-md"
+            style={{
+              color: "var(--text-color)",
+              borderColor: "var(--accent-color)",
+            }}
           >
             {isEditing ? "View" : "Edit"}
           </button>
           <button
             onClick={handleCopy}
-            className="px-2 py-1 text-gray-600 border rounded-md hover:bg-gray-100"
+            className="px-2 py-1 border rounded-md"
+            style={{
+              color: "var(--text-color)",
+              borderColor: "var(--accent-color)",
+            }}
           >
             {copied ? "Copied!" : "Copy"}
           </button>
@@ -88,10 +106,24 @@ Please respond in ${toneContext}, ${urgencyContext}, and ${complexityContext}.
         <textarea
           value={customPrompt}
           onChange={(e) => setCustomPrompt(e.target.value)}
-          className="w-full h-48 p-3 font-mono text-sm text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 resize-vertical"
+          className="w-full h-48 p-3 font-mono text-sm rounded-md shadow-sm resize-vertical"
+          style={{
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
+            borderColor: "var(--accent-color)",
+            fontSize: "var(--font-size)",
+          }}
         />
       ) : (
-        <div className="p-3 font-mono text-sm leading-relaxed text-gray-800 whitespace-pre-wrap bg-white border border-gray-200 rounded-md">
+        <div
+          className="p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap border rounded-md"
+          style={{
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
+            borderColor: "var(--accent-color)",
+            fontSize: "var(--font-size)",
+          }}
+        >
           {customPrompt}
         </div>
       )}
