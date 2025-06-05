@@ -1,4 +1,4 @@
-# AskBetter – Human-First AI Prompt Builder
+# AskBetter – A Clear Way to Talk to AI
 
 **AskBetter** is a visual interface for crafting better prompts—built for clarity, expression, and emotional alignment. It’s designed to support both casual and advanced users in refining how they interact with AI. The app balances human nuance with AI precision, helping users frame their intentions through mood, tone, goal, and context-based inputs.
 
