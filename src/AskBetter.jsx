@@ -1064,7 +1064,7 @@ const AskBetter = () => {
     return button;
   };
 
-  // Enhanced Theme Selector with better UX
+  // Enhanced Theme Selector with better UX and proper z-index
   const ThemeSelector = () => (
     <div className="relative" ref={themeMenuRef}>
       <AnimatedButton
@@ -1084,12 +1084,29 @@ const AskBetter = () => {
 
       {showThemePanel && (
         <>
-          {/* Backdrop */}
-          <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[90]" />
-
-          {/* Theme Panel */}
+          {/* Backdrop with MAXIMUM z-index */}
           <div
-            className={`absolute top-full right-0 mt-3 w-[480px] max-w-[90vw] ${currentTheme.classes.cardBg} backdrop-blur-xl rounded-3xl border ${currentTheme.classes.cardBorder} ${currentTheme.classes.shadow} p-6 z-[100] max-h-[70vh] overflow-y-auto`}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm"
+            style={{
+              zIndex: 2147483647,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }}
+            onClick={() => setShowThemePanel(false)}
+          />
+
+          {/* Theme Panel with MAXIMUM z-index */}
+          <div
+            className={`fixed top-20 right-6 w-[480px] max-w-[90vw] ${currentTheme.classes.cardBg} backdrop-blur-xl rounded-3xl border ${currentTheme.classes.cardBorder} ${currentTheme.classes.shadow} p-6 max-h-[70vh] overflow-y-auto`}
+            style={{
+              zIndex: 2147483647,
+              position: "fixed",
+              top: "80px",
+              right: "24px",
+            }}
           >
             <div className="flex items-center justify-between mb-6">
               <h3
@@ -1100,7 +1117,7 @@ const AskBetter = () => {
               </h3>
               <button
                 onClick={() => setShowThemePanel(false)}
-                className={`p-2 ${currentTheme.classes.textMuted} hover:${currentTheme.classes.text} transition-colors rounded-lg`}
+                className={`p-2 ${currentTheme.classes.textMuted} hover:${currentTheme.classes.text} transition-colors rounded-lg z-10 relative`}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1118,7 +1135,7 @@ const AskBetter = () => {
                       setTheme(key);
                       setShowThemePanel(false);
                     }}
-                    className={`group text-left p-4 rounded-2xl transition-all duration-500 hover:scale-[1.02] ${
+                    className={`group text-left p-4 rounded-2xl transition-all duration-500 hover:scale-[1.02] relative z-10 ${
                       isActive
                         ? `${themeData.classes.primary} text-white shadow-xl shadow-black/20 ring-2 ring-white/20`
                         : `bg-white/40 backdrop-blur-sm hover:bg-white/60 ${currentTheme.classes.text} hover:shadow-lg`
