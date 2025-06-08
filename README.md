@@ -1,104 +1,145 @@
-# AskBetter – A Clear Way to Talk to AI
+# AskBetter – Human-Friendly AI Prompt Assistant
 
-**AskBetter** is a visual interface for crafting better prompts—built for clarity, expression, and emotional alignment. It’s designed to support both casual and advanced users in refining how they interact with AI. The app balances human nuance with AI precision, helping users frame their intentions through mood, tone, goal, and context-based inputs.
+## Project Overview
 
-> “Instead of learning prompt engineering, let the interface learn you.”
+AskBetter is a personal tool built to simplify the way people interact with AI. It offers a guided, step-by-step flow that helps users create better prompts, even if they don’t understand how AI systems work behind the scenes.
+
+This project was built during my first year at Noroff as a Front-End Development student. It's a standalone app and part of my portfolio submission. The goal was to demonstrate not only coding and design skills, but also a creative solution to a real usability issue.
+
+AskBetter is designed using React (via Vite), Tailwind CSS, and Framer Motion. The design reflects a calm, structured approach aimed at reducing friction for users who feel overwhelmed or unsure about prompt engineering.
 
 ---
 
-## Key Features
+## Links
 
-- **Step-by-step UI**  
-  Users progress through mood, tone, urgency, complexity, goal, and assistant selection.
+- Live site: [https://askbetter.vercel.app](https://askbetter.vercel.app)
+- GitHub repo: [https://github.com/sergiu-sa/askbetter](https://github.com/sergiu-sa/askbetter)
 
-- **Real-time prompt preview**  
-  The interface builds and displays the full prompt as the user moves through each step.
+---
 
-- **Dynamic visual feedback**  
-  Color themes and animations respond to selected inputs, enhancing engagement and clarity.
+## Screenshot
 
-- **UI Modes (planned)**  
-  Designed to support both beginner and advanced (Pro) modes.
+![AskBetter Screenshot](src/assets/screenshots/coffe_basic_02.png)
+![AskBetter Screenshot](src/assets/screenshots/coffe_pro_02.png)
 
-- **Modern UX**  
-  Keyboard shortcuts, transitions, animated feedback, and a minimal but expressive design system.
+---
 
-- **Built with Tailwind CSS**  
-  The interface uses utility-first styling for consistency and scalability.
+## How to Use
+
+1. Choose your goal (e.g., write a summary, create a message)
+2. Set the tone, complexity, and urgency sliders
+3. Add optional mood or assistant preferences
+4. Preview your prompt in real time
+5. Copy the result or use it with your preferred AI tool
 
 ---
 
 ## Tech Stack
 
-- **React** – Component-based UI framework  
-- **Vite** – Development environment for fast builds  
-- **Tailwind CSS** – Utility-first styling  
-- **Lucide React** – Icon set  
-- **Framer Motion** (optional/WIP) – Animation support
+- React (with Vite)
+- Tailwind CSS
+- Framer Motion for animations
+- React Portals (for overlay elements)
+- Local Storage (for theme persistence)
+- Vanilla JavaScript logic for state and behavior
 
 ---
 
-## Getting Started
+## Features
 
-### 1. Clone the repository
+- Guided, multi-step interface
+- Theme selection panel using React Portals
+- Real-time prompt preview
+- Slider controls for tone, complexity, and urgency
+- Mobile and desktop responsive layout
+- Clean, accessible markup and logical structure
+
+---
+
+## Project Goals
+
+- Make AI more usable and friendly to non-technical users
+- Reduce guesswork in prompt writing
+- Explore calm UI patterns with minimal distraction
+- Practice advanced component logic and state management
+
+---
+
+## Installation
+
+To run locally:
 
 ```bash
 git clone https://github.com/sergiu-sa/askbetter.git
 cd askbetter
-```
-
-### 2. Install dependencies
-
-```bash
 npm install
-```
-
-### 3. Start the development server
-
-```bash
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173`.
+To build for production:
+
+```bash
+npm run build
+```
 
 ---
 
-## Project Structure Overview
+## Folder Structure
 
-```
+```bash
 askbetter/
+│
+├── public/           Static assets
 ├── src/
-│   ├── App.jsx            # Entry point
-│   ├── AskBetter.jsx      # Main UI logic
-│   ├── assets/            # Visual and icon assets
-│   ├── components/        # (optional modular structure)
-│   └── index.css          # Tailwind setup
-├── index.html
-├── tailwind.config.js
-├── postcss.config.js
-└── package.json
+│   ├── assets/       Fonts, images, videos
+│   ├── components/   Reusable interface components
+│   ├── pages/        Step-based UI flows
+│   ├── utils/        Prompt logic and helpers
+│   └── styles/       Tailwind and custom CSS
 ```
 
 ---
 
-## Concept and Purpose
+## My Role
 
-AskBetter is designed as a clarity tool—not just a productivity tool. It helps people express complex intent in simpler language. Whether you're new to AI or use it daily, this project gives you a guided path to building structured, thoughtful prompts.
+I designed and developed the entire AskBetter MVP from scratch. This includes:
+
+- Research and concept development
+- UX writing and layout decisions
+- Implementing React component architecture
+- Building logic for tone/urgency/mood input
+- Creating a consistent visual design system
+- Managing the Vite + Tailwind setup and deployment
+
+---
+
+## Learning Outcomes
+
+- Gained hands-on experience with React and Vite
+- Learned how to use React Portals for UI overlays
+- Practiced using Framer Motion for modern animations
+- Improved in accessibility, responsiveness, and layout control
+- Explored UI design principles like progressive disclosure and emotional simplicity
 
 ---
 
 ## Current Status
 
-This is the **initial development version**. Core functionality is in place, but several improvements are planned:
+This project is still under active development (Work In Progress).
 
-- Dark/light mode support  
-- Theme personalization and saved moods  
-- Mobile responsiveness refinements  
-- Assistant profiles and dynamic role switching  
-- Accessibility and keyboard navigation improvements
+Version 1 is publicly available. Planned improvements for the next version:
+
+- Voice-to-prompt feature
+- GPT integration with live feedback
+- User account support
+- History and favorite prompts
+- More themes and accessibility options
 
 ---
 
-## License
+## Contact
 
-MIT License — Open source and available for modification or use. Please give credit if you adapt it for public or commercial projects.
+If you want to collaborate or give feedback:
+
+- Email: sergiudsarbu@gmail.com
+- GitHub: [https://github.com/sergiu-sa](https://github.com/sergiu-sa)
